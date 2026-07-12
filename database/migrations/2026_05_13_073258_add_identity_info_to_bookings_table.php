@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('bookings', function (Blueprint $table) {
+            $table->string('identity_number')->nullable()->after('seat_number');
+            $table->date('birth_date')->nullable()->after('identity_number');
+            $table->enum('gender', ['L', 'P'])->nullable()->after('birth_date');
+            $table->string('phone')->nullable()->after('gender');
+            $table->string('snap_token')->nullable()->after('total_price');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('bookings', function (Blueprint $table) {
+            $table->dropColumn(['identity_number', 'birth_date', 'gender', 'phone', 'snap_token']);
+        });
+    }
+};
