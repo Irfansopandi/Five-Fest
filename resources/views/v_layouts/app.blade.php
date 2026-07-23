@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'fivefest')</title>
 
-    <link rel="icon" href="{{ asset('storage/images/logo/logo.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset('storage/images/logo/logo.png') }}?v=2" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('storage/images/logo/logo.png') }}?v=2" type="image/png">
+    <link rel="apple-touch-icon" href="{{ asset('storage/images/logo/logo.png') }}?v=2">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
