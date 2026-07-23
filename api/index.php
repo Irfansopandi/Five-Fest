@@ -5,19 +5,13 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-// Ensure /tmp storage directories exist for serverless environment
-$storageDirs = [
-    '/tmp/storage/framework/views',
-    '/tmp/storage/framework/cache',
-    '/tmp/storage/framework/sessions',
-    '/tmp/storage/logs',
-    '/tmp/views'
-];
-
-foreach ($storageDirs as $dir) {
-    if (!is_dir($dir)) {
-        @mkdir($dir, 0755, true);
-    }
+// Ensure /tmp storage directories exist once for serverless environment
+if (!is_dir('/tmp/storage/framework/views')) {
+    @mkdir('/tmp/storage/framework/views', 0755, true);
+    @mkdir('/tmp/storage/framework/cache', 0755, true);
+    @mkdir('/tmp/storage/framework/sessions', 0755, true);
+    @mkdir('/tmp/storage/logs', 0755, true);
+    @mkdir('/tmp/views', 0755, true);
 }
 
 require __DIR__ . '/../vendor/autoload.php';

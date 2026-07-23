@@ -34,21 +34,24 @@ use App\Http\Controllers\StaffController;
 Route::get('/', function () {
     $today = now()->toDateString();
 
-    $events = \App\Models\Event::with('ticket_categories')
-        ->where('status', 'active')
-        ->whereDate('date', '>=', $today)
-        ->latest()
-        ->limit(6)
-        ->get();
+    $events = \Illuminate\Support\Facades\Cache::remember('home_events_' . $today, 60, function () use ($today) {
+        return \App\Models\Event::with('ticket_categories')
+            ->where('status', 'active')
+            ->whereDate('date', '>=', $today)
+            ->latest()
+            ->limit(6)
+            ->get();
+    });
 
-    // Get trending events (sorted by search_count DESC, then view_count DESC)
-    $trending = \App\Models\Event::with('ticket_categories')
-        ->where('status', 'active')
-        ->whereDate('date', '>=', $today)
-        ->orderByDesc('search_count')
-        ->orderByDesc('view_count')
-        ->limit(3)
-        ->get();
+    $trending = \Illuminate\Support\Facades\Cache::remember('home_trending_' . $today, 60, function () use ($today) {
+        return \App\Models\Event::with('ticket_categories')
+            ->where('status', 'active')
+            ->whereDate('date', '>=', $today)
+            ->orderByDesc('search_count')
+            ->orderByDesc('view_count')
+            ->limit(3)
+            ->get();
+    });
 
     return view('home', compact('events', 'trending'));
 })->name('home');
