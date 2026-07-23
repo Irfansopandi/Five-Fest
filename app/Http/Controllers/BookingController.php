@@ -59,15 +59,25 @@ class BookingController extends Controller
                 $merchandises = \App\Models\Merchandise::whereIn('id', $request->merch_ids)->get();
                 foreach ($merchandises as $m) {
                     $mQty = (int) ($request->merch_quantities[$m->id] ?? 0);
+                    $mSize = $request->merch_sizes[$m->id] ?? null;
                     if ($mQty > 0) {
+                        if ($m->stock < $mQty) {
+                            return back()->with('error', 'Maaf, stok merchandise ' . $m->name . ' tidak mencukupi. Sisa stok: ' . $m->stock);
+                        }
                         $merchTotal += $m->price * $mQty;
+                        $displayName = $m->name . ($mSize ? ' [' . $mSize . ']' : '');
                         $merchItems[] = [
                             'id' => 'MERCH-' . $m->id,
                             'price' => (int)$m->price,
                             'quantity' => $mQty,
-                            'name' => $m->name,
+                            'name' => $displayName,
                         ];
-                        $selectedMerch[] = ['id' => $m->id, 'price' => $m->price, 'quantity' => $mQty];
+                        $selectedMerch[] = [
+                            'id' => $m->id, 
+                            'price' => $m->price, 
+                            'quantity' => $mQty,
+                            'size' => $mSize
+                        ];
                     }
                 }
             }
@@ -123,9 +133,14 @@ class BookingController extends Controller
                 $ticketCategory->decrement('quota', $request->quantity);
                 $ticketCategory->increment('last_seat_number', $request->quantity);
 
-                // Save pivot
+                // Save pivot & Decrement merchandise stock
                 foreach ($selectedMerch as $sm) {
-                    $booking->merchandises()->attach($sm['id'], ['price' => $sm['price'], 'quantity' => $sm['quantity']]);
+                    $booking->merchandises()->attach($sm['id'], [
+                        'price' => $sm['price'], 
+                        'quantity' => $sm['quantity'],
+                        'size' => $sm['size'] ?? null
+                    ]);
+                    \App\Models\Merchandise::where('id', $sm['id'])->decrement('stock', $sm['quantity']);
                 }
 
                 // Midtrans setup

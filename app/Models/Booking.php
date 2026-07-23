@@ -59,6 +59,7 @@ class Booking extends Model
                     ->withPivot(
                         'quantity', 
                         'price',
+                        'size',
                         'is_collected', 
                         'collected_at'
                     )

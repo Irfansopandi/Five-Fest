@@ -173,7 +173,7 @@
                                     <td><div class="small fw-600">{{ Str::limit($booking->event->title, 30) }}</div></td>
                                     <td>
                                         @forelse($booking->merchandises as $merch)
-                                            <div class="small">{{ $merch->name }} <span class="text-secondary">x{{ $merch->pivot->quantity }}</span></div>
+                                            <div class="small">{{ $merch->name }} {{ $merch->pivot->size ? '[' . $merch->pivot->size . ']' : '' }} <span class="text-secondary">x{{ $merch->pivot->quantity }}</span></div>
                                         @empty
                                             <span class="text-secondary small">-</span>
                                         @endforelse

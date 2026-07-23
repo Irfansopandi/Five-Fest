@@ -192,7 +192,7 @@
                             <td class="py-3 small">
                                 @foreach($b->merchandises as $m)
                                     <span class="badge bg-light text-dark border me-1 mb-1">
-                                        {{ $m->name }} x{{ $m->pivot->quantity }}
+                                        {{ $m->name }} {{ $m->pivot->size ? '[' . $m->pivot->size . ']' : '' }} x{{ $m->pivot->quantity }}
                                     </span>
                                 @endforeach
                             </td>

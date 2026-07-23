@@ -158,7 +158,7 @@
                             @if($booking->merchandises && $booking->merchandises->count())
                                 @foreach($booking->merchandises as $merch)
                                 <div class="small">
-                                    <span class="fw-semibold">{{ $merch->name }}</span>
+                                    <span class="fw-semibold">{{ $merch->name }} {{ $merch->pivot->size ? '[' . $merch->pivot->size . ']' : '' }}</span>
                                     <span class="text-muted">×{{ $merch->pivot->quantity }}</span>
                                 </div>
                                 @endforeach

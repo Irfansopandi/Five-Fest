@@ -17,6 +17,7 @@ class Merchandise extends Model
         'name',
         'price',
         'stock',
+        'sizes',
         'description',
         'image'
     ];

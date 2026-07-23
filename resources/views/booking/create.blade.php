@@ -712,7 +712,7 @@
                             <div class="row g-3">
                                 @forelse($event->merchandises as $merch)
                                 <div class="col-md-6">
-                                    <div class="merch-item-card d-flex flex-column gap-3" id="merch-card-{{ $merch->id }}">
+                                    <div class="merch-item-card d-flex flex-column gap-3 {{ $merch->stock <= 0 ? 'opacity-50' : '' }}" id="merch-card-{{ $merch->id }}">
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="merch-img-container" style="width: 70px; height: 70px; flex-shrink: 0;">
                                                 @if($merch->image)
@@ -724,17 +724,46 @@
                                                 @endif
                                             </div>
                                             <div class="flex-grow-1">
-                                                <h6 class="fw-bold mb-0 text-truncate" style="max-width: 150px;">{{ $merch->name }}</h6>
-                                                <p class="text-primary fw-bold mb-0 small">Rp{{ number_format($merch->price, 0, ',', '.') }}</p>
+                                                <h6 class="fw-bold mb-0 text-truncate" style="max-width: 150px;" title="{{ $merch->name }}">{{ $merch->name }}</h6>
+                                                <p class="text-primary fw-bold mb-1 small">Rp{{ number_format($merch->price, 0, ',', '.') }}</p>
+                                                
+                                                {{-- Stok Informasi --}}
+                                                <div>
+                                                    @if($merch->stock > 0)
+                                                        <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-2" style="font-size: 0.7rem;">Stok: {{ $merch->stock }}</span>
+                                                    @else
+                                                        <span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-2" style="font-size: 0.7rem;">Habis</span>
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
+
+                                        {{-- Ukuran (Tampilkan hanya jika vendor mengisi ukuran) --}}
+                                        @if(!empty($merch->sizes))
+                                            @php
+                                                $sizeList = array_filter(array_map('trim', preg_split('/[,\/]+/', $merch->sizes)));
+                                            @endphp
+                                            @if(count($sizeList) > 0)
+                                            <div class="pt-2 border-top">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <label class="small text-muted fw-bold mb-0" style="font-size: 0.75rem;">Pilih Ukuran:</label>
+                                                    <select name="merch_sizes[{{ $merch->id }}]" id="merch-size-{{ $merch->id }}" class="form-select form-select-sm merch-size-select" style="width: auto; max-width: 130px; border-radius: 8px; font-size: 0.78rem;" onchange="updateSummary()" {{ $merch->stock <= 0 ? 'disabled' : '' }}>
+                                                        @foreach($sizeList as $sz)
+                                                            <option value="{{ $sz }}">{{ $sz }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            @endif
+                                        @endif
+
                                         <div class="d-flex align-items-center justify-content-between pt-2 border-top">
                                             <span class="small text-muted fw-bold">Jumlah</span>
                                             <div class="d-flex align-items-center gap-2">
-                                                <button type="button" class="btn btn-sm btn-light rounded-circle" onclick="updateMerchQty('{{ $merch->id }}', -1)"><i class="bi bi-dash"></i></button>
-                                                <input type="number" name="merch_quantities[{{ $merch->id }}]" id="merch-qty-{{ $merch->id }}" value="0" min="0" class="form-control form-control-sm text-center fw-bold merch-qty-input" style="width: 50px; border-radius: 10px;" data-name="{{ $merch->name }}" data-price="{{ $merch->price }}" readonly>
+                                                <button type="button" class="btn btn-sm btn-light rounded-circle" onclick="updateMerchQty('{{ $merch->id }}', -1)" {{ $merch->stock <= 0 ? 'disabled' : '' }}><i class="bi bi-dash"></i></button>
+                                                <input type="number" name="merch_quantities[{{ $merch->id }}]" id="merch-qty-{{ $merch->id }}" value="0" min="0" max="{{ $merch->stock }}" class="form-control form-control-sm text-center fw-bold merch-qty-input" style="width: 50px; border-radius: 10px;" data-name="{{ $merch->name }}" data-price="{{ $merch->price }}" data-stock="{{ $merch->stock }}" readonly {{ $merch->stock <= 0 ? 'disabled' : '' }}>
                                                 <input type="hidden" name="merch_ids[]" value="{{ $merch->id }}">
-                                                <button type="button" class="btn btn-sm btn-light rounded-circle" onclick="updateMerchQty('{{ $merch->id }}', 1)"><i class="bi bi-plus"></i></button>
+                                                <button type="button" class="btn btn-sm btn-light rounded-circle" onclick="updateMerchQty('{{ $merch->id }}', 1)" {{ $merch->stock <= 0 ? 'disabled' : '' }}><i class="bi bi-plus"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -1077,20 +1106,29 @@
         const selectedMerch = [];
         document.querySelectorAll('.merch-qty-input').forEach(el => {
             let mQty = parseInt(el.value);
+            const mId = el.id.replace('merch-qty-', '');
+            const stock = parseInt(el.dataset.stock || 0);
+            let maxAllowed = Math.min(qty, stock);
             
-            // AUTO CAP: If merch qty > ticket qty, cap it
-            if (mQty > qty) {
-                mQty = qty;
-                el.value = qty;
-                const mId = el.id.replace('merch-qty-', '');
+            // AUTO CAP: If merch qty > maxAllowed, cap it
+            if (mQty > maxAllowed) {
+                mQty = maxAllowed;
+                el.value = maxAllowed;
                 document.getElementById('merch-card-' + mId).classList.toggle('active', mQty > 0);
             }
 
             if (mQty > 0) {
                 const mPrice = parseInt(el.dataset.price);
                 const mName = el.dataset.name;
+                
+                // Cek apakah ada pilihan ukuran
+                const sizeSelect = document.getElementById('merch-size-' + mId);
+                const mSize = sizeSelect ? sizeSelect.value : null;
+                
+                const merchLabel = mSize ? `${mName} [${mSize}] (x${mQty})` : `${mName} (x${mQty})`;
+
                 merchTotal += mPrice * mQty;
-                selectedMerch.push(`${mName} (x${mQty})`);
+                selectedMerch.push(merchLabel);
             }
         });
 
@@ -1128,19 +1166,41 @@
         const input = document.getElementById('merch-qty-' + id);
         const card = document.getElementById('merch-card-' + id);
         const ticketQty = parseInt(document.getElementById('ticketQuantity').value);
+        const stock = parseInt(input.dataset.stock || 0);
         let val = parseInt(input.value) + change;
         
-        if (val >= 0 && val <= ticketQty) {
+        if (stock <= 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Stok Habis',
+                text: 'Maaf, stok merchandise ini sedang habis.',
+                confirmButtonColor: '#8b5cf6'
+            });
+            return;
+        }
+
+        let maxAllowed = Math.min(ticketQty, stock);
+        
+        if (val >= 0 && val <= maxAllowed) {
             input.value = val;
             card.classList.toggle('active', val > 0);
             updateSummary();
-        } else if (val > ticketQty) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Batas Maksimal',
-                text: 'Jumlah tiap merchandise tidak boleh melebihi jumlah tiket (' + ticketQty + ').',
-                confirmButtonColor: '#8b5cf6'
-            });
+        } else if (val > maxAllowed) {
+            if (stock < ticketQty && val > stock) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Stok Terbatas',
+                    text: 'Sisa stok merchandise ini hanya ' + stock + ' item.',
+                    confirmButtonColor: '#8b5cf6'
+                });
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Batas Maksimal',
+                    text: 'Jumlah tiap merchandise tidak boleh melebihi jumlah tiket (' + ticketQty + ').',
+                    confirmButtonColor: '#8b5cf6'
+                });
+            }
         }
     }
 
