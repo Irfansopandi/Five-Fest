@@ -39,6 +39,8 @@
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "false",
+        "SESSION_DRIVER": "cookie",
+        "SESSION_LIFETIME": "120",
         "LOG_CHANNEL": "stderr",
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
