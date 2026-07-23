@@ -382,6 +382,91 @@
         border: none;
         overflow: hidden;
     }
+
+    @media (max-width: 768px) {
+        .booking-wrapper {
+            padding-top: 80px !important;
+            padding-bottom: 40px !important;
+        }
+        .booking-wrapper h2 {
+            font-size: 1.8rem !important;
+        }
+        .booking-wrapper .mb-5 {
+            margin-bottom: 25px !important;
+        }
+        .premium-card {
+            border-radius: 20px !important;
+            padding: 20px !important;
+        }
+        .booking-stepper {
+            gap: 6px !important;
+            margin-bottom: 45px !important;
+            align-items: center !important;
+        }
+        .step-node {
+            justify-content: center !important;
+            height: 30px !important;
+        }
+        .step-circle {
+            width: 30px !important;
+            height: 30px !important;
+            font-size: 0.75rem !important;
+            border-width: 1.5px !important;
+        }
+        .step-line {
+            width: 30px !important;
+            height: 2px !important;
+            margin: 0 !important;
+            align-self: center !important;
+        }
+        .step-label {
+            display: none !important;
+        }
+        .step-node.active .step-label {
+            display: block !important;
+            position: absolute !important;
+            top: 36px !important;
+            white-space: nowrap !important;
+            font-size: 0.65rem !important;
+            color: var(--ff-indigo) !important;
+            font-weight: 800 !important;
+        }
+        .ticket-option-card > .d-flex.justify-content-between {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 12px !important;
+        }
+        .ticket-option-card .text-end {
+            text-align: left !important;
+            width: 100% !important;
+            border-top: 1px dashed #e2e8f0 !important;
+            padding-top: 10px !important;
+            display: flex !important;
+            align-items: baseline !important;
+            gap: 6px !important;
+        }
+        .ticket-option-card .text-end .text-primary {
+            font-size: 1.15rem !important;
+        }
+        .booking-pane .d-flex.gap-3 {
+            flex-direction: column-reverse !important;
+            gap: 10px !important;
+        }
+        .booking-pane .btn-next-step,
+        .booking-pane .btn-light.rounded-pill {
+            border-radius: 15px !important;
+            padding: 14px 20px !important;
+            width: 100% !important;
+            height: auto !important;
+            display: inline-block !important;
+            text-align: center !important;
+        }
+        .booking-pane .btn-light.rounded-pill {
+            background-color: #f1f5f9 !important;
+            border: 1px solid #cbd5e1 !important;
+            color: #475569 !important;
+        }
+    }
 </style>
 
 <div class="booking-wrapper">
@@ -709,7 +794,7 @@
                                     <label class="form-label fw-bold text-muted small">NOMOR WHATSAPP</label>
                                     <div class="input-group">
                                         <span class="input-group-text bg-light border-2 border-end-0" style="border-radius: 15px 0 0 15px;">+62</span>
-                                        <input type="text" name="phone" id="phone" placeholder="812xxxxxxxx" class="form-control form-control-premium" style="border-radius: 0 15px 15px 0;">
+                                        <input type="number" name="phone" id="phone" placeholder="812xxxxxxxx" class="form-control form-control-premium" style="border-radius: 0 15px 15px 0;">
                                     </div>
                                     <div class="invalid-feedback d-block" id="phone-error" style="display: none !important;">Nomor WhatsApp wajib diisi.</div>
                                 </div>

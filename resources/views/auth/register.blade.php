@@ -124,6 +124,11 @@
     .divider:not(:empty)::after { margin-left: .5em; }
 
     @media (max-width: 768px) {
+        .glass-card {
+            width: 90% !important;
+            max-width: 360px !important;
+            margin: 0 auto !important;
+        }
         .glass-card .card-body {
             padding: 1.5rem 1.25rem !important;
         }
@@ -211,7 +216,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-semibold small text-secondary">No. Telepon</label>
-                                    <input type="tel" name="phone" class="form-control form-control-lg bg-light border-0 shadow-sm @error('phone') is-invalid @enderror" 
+                                    <input type="number" name="phone" class="form-control form-control-lg bg-light border-0 shadow-sm @error('phone') is-invalid @enderror" 
                                            placeholder="0812xxxxxx" value="{{ old('phone') }}">
                                     @error('phone')
                                         <div class="invalid-feedback">{{ $message }}</div>

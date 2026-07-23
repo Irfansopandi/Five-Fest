@@ -290,6 +290,16 @@
                                 </div>
                             @endif
 
+                            @if($errors->any())
+                                <div class="alert alert-danger border-0 rounded-4 p-3 mb-4">
+                                    <ul class="mb-0">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             <form action="{{ route('profile.update') }}" method="POST">
                                 @csrf @method('PUT')
                                 <div class="row g-4">
@@ -308,7 +318,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Nomor WhatsApp</label>
-                                        <input type="tel" name="phone" class="form-control form-control-custom" value="{{ Auth::user()->phone }}" placeholder="Contoh: 0812xxxx">
+                                        <input type="number" name="phone" class="form-control form-control-custom" value="{{ Auth::user()->phone }}" placeholder="Contoh: 0812xxxx">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Jenis Akun</label>

@@ -39,7 +39,7 @@
 
                 {{-- Slide 1 --}}
                 <div class="carousel-item active">
-                    <img src="{{ asset('storage/images/slider/fivefest1.jpg') }}" class="d-block w-100 hero-img-box" alt="Main Festival">
+                    <img src="{{ asset('storage/images/slider/fivefest1.webp') }}" class="d-block w-100 hero-img-box" alt="Main Festival">
                     <div class="hero-overlay-dark"></div>
                     <div class="hero-caption-box">
                         <span class="badge bg-purple-deep px-3 py-2 rounded-pill mb-4">MEMBER EXCLUSIVE</span>
@@ -51,7 +51,7 @@
 
                 {{-- Slide 2 --}}
                 <div class="carousel-item">
-                    <img src="{{ asset('storage/images/slider/fivefest2.jpg') }}" class="d-block w-100 hero-img-box" alt="International Artist">
+                    <img src="{{ asset('storage/images/slider/fivefest2.webp') }}" class="d-block w-100 hero-img-box" alt="International Artist">
                     <div class="hero-overlay-dark"></div>
                     <div class="hero-caption-box">
                         <span class="badge bg-danger px-3 py-2 rounded-pill mb-4">TRENDING NOW</span>
@@ -63,7 +63,7 @@
 
                 {{-- Slide 3 --}}
                 <div class="carousel-item">
-                    <img src="{{ asset('storage/images/slider/fivefest3.jpg') }}" class="d-block w-100 hero-img-box" alt="Orchestra Session">
+                    <img src="{{ asset('storage/images/slider/fivefest3.webp') }}" class="d-block w-100 hero-img-box" alt="Orchestra Session">
                     <div class="hero-overlay-dark"></div>
                     <div class="hero-caption-box">
                         <span class="badge bg-info px-3 py-2 rounded-pill mb-4">NIGHT</span>
@@ -76,7 +76,7 @@
                 {{-- Slide 4 — Tenant (hanya untuk guest) --}}
                 @guest
                 <div class="carousel-item">
-                    <img src="{{ asset('storage/images/slider/side1.jpeg') }}" class="d-block w-100 hero-img-box" alt="Tenant Registration"
+                    <img src="{{ asset('storage/images/slider/stand.webp') }}" class="d-block w-100 hero-img-box" alt="Tenant Registration"
                          onerror="this.src='{{ asset('storage/images/slider/fivefest2.jpg') }}'">
                     <div class="hero-overlay-dark"></div>
                     <div class="hero-caption-box">

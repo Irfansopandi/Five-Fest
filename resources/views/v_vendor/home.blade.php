@@ -15,49 +15,61 @@
             <p class="text-muted">Ikuti langkah mudah untuk mulai menjual tiket event mahakarya Anda.</p>
         </div>
 
-        <div class="row g-5">
+        <div class="row g-4 align-items-stretch">
             {{-- Column 1 --}}
-            <div class="col-lg-4">
-                <div class="guide-item mb-5">
-                    <div class="guide-num">01</div>
-                    <h5 class="fw-bold mt-3">Persiapan Visual</h5>
-                    <p class="text-muted small">Siapkan poster event terbaik Anda dengan rasio 724x340 pixel. Poster yang menarik meningkatkan minat pembeli hingga 40%.</p>
+            <div class="col-lg-4 d-flex flex-column gap-3">
+                <div class="card border-0 shadow-sm p-4 rounded-4 bg-light flex-fill guide-card">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="guide-badge">01</div>
+                        <h5 class="fw-bold mb-0" style="color: #1e1b4b;">Persiapan Visual</h5>
+                    </div>
+                    <p class="text-muted small mb-0">Siapkan poster event terbaik Anda dengan rasio 724x340 pixel. Poster yang menarik meningkatkan minat pembeli hingga 40%.</p>
                 </div>
-                <div class="guide-item mb-5">
-                    <div class="guide-num">02</div>
-                    <h5 class="fw-bold mt-3">Data Dasar Event</h5>
-                    <p class="text-muted small">Isi Judul, Kategori (K-Pop, Indie, Festival, dll), serta Lokasi yang terintegrasi dengan Google Maps untuk memudahkan navigasi penonton.</p>
+                <div class="card border-0 shadow-sm p-4 rounded-4 bg-light flex-fill guide-card">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="guide-badge">02</div>
+                        <h5 class="fw-bold mb-0" style="color: #1e1b4b;">Data Dasar Event</h5>
+                    </div>
+                    <p class="text-muted small mb-0">Isi Judul, Kategori (K-Pop, Indie, Festival, dll), serta Lokasi yang terintegrasi dengan Google Maps untuk memudahkan navigasi penonton.</p>
                 </div>
-                <div class="guide-item">
-                    <div class="guide-num">03</div>
-                    <h5 class="fw-bold mt-3">Kategori Tiket</h5>
-                    <p class="text-muted small">Buat tiket Seating (dengan nomor kursi) atau Standing. Tentukan harga dan kuota untuk setiap kategori secara fleksibel.</p>
+                <div class="card border-0 shadow-sm p-4 rounded-4 bg-light flex-fill guide-card">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="guide-badge">03</div>
+                        <h5 class="fw-bold mb-0" style="color: #1e1b4b;">Kategori Tiket</h5>
+                    </div>
+                    <p class="text-muted small mb-0">Buat tiket Seating (dengan nomor kursi) atau Standing. Tentukan harga dan kuota untuk setiap kategori secara fleksibel.</p>
                 </div>
             </div>
 
             {{-- Column 2 (Image/Illustration) --}}
-            <div class="col-lg-4 d-none d-lg-block text-center">
+            <div class="col-lg-4 d-none d-lg-flex align-items-center justify-content-center text-center">
                 <div class="sticky-top" style="top: 100px;">
-                    <img src="https://img.freepik.com/free-vector/digital-marketing-concept-illustration_114360-1011.jpg" class="img-fluid rounded-5 shadow-lg" alt="Dashboard Preview">
+                    <img src="https://img.freepik.com/free-vector/digital-marketing-concept-illustration_114360-1011.jpg" class="img-fluid rounded-5 shadow-lg" alt="Dashboard Preview" style="max-height: 400px; object-fit: cover;">
                 </div>
             </div>
 
             {{-- Column 3 --}}
-            <div class="col-lg-4">
-                <div class="guide-item mb-5">
-                    <div class="guide-num">04</div>
-                    <h5 class="fw-bold mt-3">Deskripsi & S&K</h5>
-                    <p class="text-muted small">Berikan informasi detail mengenai lineup artis, jadwal acara, dan syarat masuk yang harus dipatuhi oleh pengunjung.</p>
+            <div class="col-lg-4 d-flex flex-column gap-3">
+                <div class="card border-0 shadow-sm p-4 rounded-4 bg-light flex-fill guide-card">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="guide-badge">04</div>
+                        <h5 class="fw-bold mb-0" style="color: #1e1b4b;">Deskripsi & S&K</h5>
+                    </div>
+                    <p class="text-muted small mb-0">Berikan informasi detail mengenai lineup artis, jadwal acara, dan syarat masuk yang harus dipatuhi oleh pengunjung.</p>
                 </div>
-                <div class="guide-item mb-5">
-                    <div class="guide-num">05</div>
-                    <h5 class="fw-bold mt-3">Atur Penjualan</h5>
-                    <p class="text-muted small">Tentukan waktu "War Ticket" Anda. Atur limit pembelian per transaksi untuk mencegah bot dan scalper.</p>
+                <div class="card border-0 shadow-sm p-4 rounded-4 bg-light flex-fill guide-card">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="guide-badge">05</div>
+                        <h5 class="fw-bold mb-0" style="color: #1e1b4b;">Atur Penjualan</h5>
+                    </div>
+                    <p class="text-muted small mb-0">Tentukan waktu "War Ticket" Anda. Atur limit pembelian per transaksi untuk mencegah bot dan scalper.</p>
                 </div>
-                <div class="guide-item">
-                    <div class="guide-num">06</div>
-                    <h5 class="fw-bold mt-3">Tarik Pendapatan</h5>
-                    <p class="text-muted small">Pantau penjualan secara real-time. Dana penjualan tiket akan langsung masuk ke rekening yang Anda daftarkan.</p>
+                <div class="card border-0 shadow-sm p-4 rounded-4 bg-light flex-fill guide-card">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <div class="guide-badge">06</div>
+                        <h5 class="fw-bold mb-0" style="color: #1e1b4b;">Tarik Pendapatan</h5>
+                    </div>
+                    <p class="text-muted small mb-0">Pantau penjualan secara real-time. Dana penjualan tiket akan langsung masuk ke rekening yang Anda daftarkan.</p>
                 </div>
             </div>
         </div>
@@ -65,16 +77,28 @@
 </section>
 
 <style>
-    .guide-num {
-        font-size: 3rem;
-        font-weight: 900;
-        color: #f1f5f9;
-        line-height: 1;
-        transition: 0.3s;
+    .guide-card {
+        border: 1px solid rgba(0,0,0,0.03) !important;
+        transition: all 0.3s ease;
     }
-    .guide-item:hover .guide-num {
-        color: #ddd6fe;
-        transform: scale(1.1);
+    .guide-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(124, 58, 237, 0.08) !important;
+        background: white !important;
+        border-color: rgba(124, 58, 237, 0.15) !important;
+    }
+    .guide-badge {
+        background: linear-gradient(135deg, #7c3aed, #db2777);
+        color: white;
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 1rem;
+        box-shadow: 0 4px 10px rgba(124, 58, 237, 0.2);
     }
     .text-purple-magic {
         background: linear-gradient(45deg, #7c3aed, #db2777);
@@ -86,7 +110,7 @@
 {{-- 1. PRICING & SIMULATION SECTION --}}
 <section class="py-5 bg-white overflow-hidden">
     <div class="container py-5">
-        <div class="row align-items-center">
+        <div class="row align-items-center gy-5">
             <div class="col-lg-6" data-aos="fade-right">
                 <h2 class="fw-black mb-4 display-5" style="color: #1e1b4b; letter-spacing: -1.5px;">Biaya Transaksi <span class="text-purple-magic">Paling Bersaing</span></h2>
                 <p class="text-muted mb-5 fs-5 lh-base">Kami percaya pada pertumbuhan bersama. FiveFest hanya mengenakan biaya layanan kecil untuk setiap tiket yang terjual, tanpa biaya pendaftaran atau biaya tersembunyi lainnya.</p>
@@ -146,21 +170,21 @@
         <div class="row g-4">
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                 <div class="card h-100 border-0 shadow-sm p-4 rounded-5 feature-card-hover">
-                    <div class="mb-4 bg-primary-subtle rounded-4 d-inline-flex p-3 text-primary"><i class="bi bi-person-check fs-2"></i></div>
+                    <div class="mb-4 bg-primary-subtle rounded-4 d-inline-flex p-3 text-primary" style="align-self: flex-start;"><i class="bi bi-person-check fs-2"></i></div>
                     <h5 class="fw-bold mb-3">Manajemen Data Pembeli</h5>
                     <p class="text-muted small lh-lg">Dapatkan data detail pembeli (Nama, Email, HP) secara real-time untuk kebutuhan database marketing Anda di masa depan.</p>
                 </div>
             </div>
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                 <div class="card h-100 border-0 shadow-sm p-4 rounded-5 feature-card-hover">
-                    <div class="mb-4 bg-danger-subtle rounded-4 d-inline-flex p-3 text-danger"><i class="bi bi-ticket-detailed fs-2"></i></div>
+                    <div class="mb-4 bg-danger-subtle rounded-4 d-inline-flex p-3 text-danger" style="align-self: flex-start;"><i class="bi bi-ticket-detailed fs-2"></i></div>
                     <h5 class="fw-bold mb-3">Custom E-Ticket Design</h5>
                     <p class="text-muted small lh-lg">Kirim e-tiket profesional dengan QR Code unik langsung ke WhatsApp dan Email pembeli secara otomatis.</p>
                 </div>
             </div>
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                 <div class="card h-100 border-0 shadow-sm p-4 rounded-5 feature-card-hover">
-                    <div class="mb-4 bg-success-subtle rounded-4 d-inline-flex p-3 text-success"><i class="bi bi-phone-vibrate fs-2"></i></div>
+                    <div class="mb-4 bg-success-subtle rounded-4 d-inline-flex p-3 text-success" style="align-self: flex-start;"><i class="bi bi-phone-vibrate fs-2"></i></div>
                     <h5 class="fw-bold mb-3">Aplikasi Scan Offline</h5>
                     <p class="text-muted small lh-lg">Sistem check-in kami tetap bekerja stabil meski koneksi internet di lokasi acara sedang tidak stabil.</p>
                 </div>
@@ -186,7 +210,7 @@
         </div>
         
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-8 px-4 px-md-0">
                 <div class="accordion accordion-flush" id="faqAccordion">
                     <div class="accordion-item border-bottom py-3">
                         <h2 class="accordion-header">

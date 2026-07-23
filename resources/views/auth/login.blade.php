@@ -167,6 +167,29 @@
     .btn-refresh-captcha:hover {
         transform: rotate(180deg);
     }
+
+    @media (max-width: 768px) {
+        .glass-card {
+            width: 90% !important;
+            max-width: 360px !important;
+            margin: 0 auto !important;
+        }
+        .glass-card .card-body {
+            padding: 1.5rem 1.25rem !important;
+        }
+        .math-captcha-box {
+            padding: 0.5rem 0.75rem !important;
+            gap: 8px !important;
+        }
+        .math-captcha-question {
+            font-size: 0.85rem !important;
+            padding: 0.2rem 0.5rem !important;
+        }
+        .math-captcha-input {
+            width: 70px !important;
+            font-size: 0.85rem !important;
+        }
+    }
 </style>
 @endpush
 

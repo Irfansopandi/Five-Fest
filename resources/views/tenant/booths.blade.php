@@ -606,25 +606,58 @@
             btn.addEventListener('click', function () {
                 const action = this.getAttribute('data-action');
                 Swal.fire({
-                    title: 'Batalkan Sewa?',
+                    title: '<span style="font-weight: 800; font-size: 1.35rem; letter-spacing: -0.5px; color: #1e1b4b; display: block; margin-top: 10px;">Batalkan Sewa & <span style="background: linear-gradient(135deg, #ef4444 0%, #db2777 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Refund</span></span>',
                     html: `
-                        <p class="text-muted mb-3">Masukkan alasan pembatalan booth ini.</p>
-                        <textarea id="refund-reason" class="form-control" rows="3" 
-                            placeholder="Contoh: Tidak jadi ikut event karena..."></textarea>
+                        <p class="text-muted mb-2 text-start small" style="font-size: 0.78rem;">Lengkapi data rekening refund dan alasan pembatalan.</p>
+                        <div class="row g-2 mb-2">
+                            <div class="col-6 text-start">
+                                <label class="form-label fw-bold mb-1 small text-dark" style="font-size: 0.75rem;">Nama Bank</label>
+                                <input type="text" id="refund-bank-name" class="form-control py-2" placeholder="BCA, Mandiri, dll." style="font-size: 0.82rem; border-radius: 8px;">
+                            </div>
+                            <div class="col-6 text-start">
+                                <label class="form-label fw-bold mb-1 small text-dark" style="font-size: 0.75rem;">No. Rekening</label>
+                                <input type="number" id="refund-account-number" class="form-control py-2" placeholder="12345678" style="font-size: 0.82rem; border-radius: 8px;">
+                            </div>
+                        </div>
+                        <div class="text-start mb-2">
+                            <label class="form-label fw-bold mb-1 small text-dark" style="font-size: 0.75rem;">Atas Nama Rekening</label>
+                            <input type="text" id="refund-account-name" class="form-control py-2" placeholder="Contoh: Budi Santoso" style="font-size: 0.82rem; border-radius: 8px;">
+                        </div>
+                        <div class="text-start mb-2">
+                            <label class="form-label fw-bold mb-1 small text-dark" style="font-size: 0.75rem;">Alasan Pembatalan</label>
+                            <textarea id="refund-reason" class="form-control py-2" rows="2" 
+                                placeholder="Contoh: Halangan mendadak..." style="font-size: 0.82rem; border-radius: 8px;"></textarea>
+                        </div>
                     `,
-                    icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#ef4444',
                     cancelButtonColor: '#6b7280',
                     confirmButtonText: 'Ya, Batalkan!',
                     cancelButtonText: 'Tutup',
                     preConfirm: () => {
-                        const reason = document.getElementById('refund-reason').value;
+                        const bankName = document.getElementById('refund-bank-name').value.trim();
+                        const accountNumber = document.getElementById('refund-account-number').value.trim();
+                        const accountName = document.getElementById('refund-account-name').value.trim();
+                        const reason = document.getElementById('refund-reason').value.trim();
+                        
+                        if (!bankName) {
+                            Swal.showValidationMessage('Nama Bank wajib diisi!');
+                            return false;
+                        }
+                        if (!accountNumber) {
+                            Swal.showValidationMessage('Nomor Rekening wajib diisi!');
+                            return false;
+                        }
+                        if (!accountName) {
+                            Swal.showValidationMessage('Atas Nama Rekening wajib diisi!');
+                            return false;
+                        }
                         if (!reason) {
                             Swal.showValidationMessage('Alasan refund wajib diisi!');
                             return false;
                         }
-                        return reason;
+                        
+                        return { bankName, accountNumber, accountName, reason };
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -633,7 +666,10 @@
                         form.action = action;
                         form.innerHTML = `
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <input type="hidden" name="refund_reason" value="${result.value}">
+                            <input type="hidden" name="refund_bank_name" value="${result.value.bankName}">
+                            <input type="hidden" name="refund_account_number" value="${result.value.accountNumber}">
+                            <input type="hidden" name="refund_account_name" value="${result.value.accountName}">
+                            <input type="hidden" name="refund_reason" value="${result.value.reason}">
                         `;
                         document.body.appendChild(form);
                         form.submit();

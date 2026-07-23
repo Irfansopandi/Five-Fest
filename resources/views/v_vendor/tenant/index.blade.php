@@ -278,8 +278,46 @@
                             <small class="text-secondary d-block">Kategori Usaha</small>
                             <span class="fw-600 text-dark">{{ $t->tenant->tenantProfile->category ?? 'Lainnya' }}</span>
                         </div>
+                </div>
+
+                {{-- Data Refund (Jika Ada) --}}
+                @if($t->refund_status && $t->refund_status !== 'none')
+                <div class="bg-warning bg-opacity-10 p-3 rounded-3 mb-4 border border-warning">
+                    <h6 class="fw-bold mb-3 border-bottom border-warning-subtle pb-2 text-warning-emphasis"><i class="bi bi-arrow-left-right me-2"></i>Informasi Pengajuan Refund</h6>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <small class="text-secondary d-block">Status Refund</small>
+                            <span class="badge bg-warning text-dark fw-bold">{{ strtoupper($t->refund_status) }}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <small class="text-secondary d-block">Tanggal Pengajuan</small>
+                            <span class="fw-600 text-dark">{{ $t->refund_requested_at ? $t->refund_requested_at->format('d M Y H:i') : '-' }}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <small class="text-secondary d-block">Nama Bank</small>
+                            <span class="fw-600 text-dark">{{ $t->refund_bank_name ?? '-' }}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <small class="text-secondary d-block">Nomor Rekening</small>
+                            <span class="fw-600 text-dark">{{ $t->refund_account_number ?? '-' }}</span>
+                        </div>
+                        <div class="col-md-12">
+                            <small class="text-secondary d-block">Atas Nama Rekening</small>
+                            <span class="fw-600 text-dark">{{ $t->refund_account_name ?? '-' }}</span>
+                        </div>
+                        <div class="col-12">
+                            <small class="text-secondary d-block">Alasan Pembatalan / Refund</small>
+                            <span class="fw-600 text-dark d-block bg-white p-2 rounded border mt-1">{{ $t->refund_reason ?? '-' }}</span>
+                        </div>
+                        @if($t->refund_status === 'rejected' && $t->refund_reject_reason)
+                        <div class="col-12">
+                            <small class="text-danger d-block">Alasan Penolakan Vendor</small>
+                            <span class="fw-600 text-danger d-block bg-white p-2 rounded border mt-1">{{ $t->refund_reject_reason }}</span>
+                        </div>
+                        @endif
                     </div>
                 </div>
+                @endif
 
                 {{-- Deskripsi --}}
                 @if($t->tenant->tenantProfile && $t->tenant->tenantProfile->description)

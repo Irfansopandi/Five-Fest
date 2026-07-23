@@ -147,14 +147,23 @@ class TenantBoothController extends Controller
 
         $request->validate([
             'refund_reason' => 'required|string|max:500',
+            'refund_bank_name' => 'required|string|max:100',
+            'refund_account_number' => 'required|string|max:50',
+            'refund_account_name' => 'required|string|max:100',
         ], [
             'refund_reason.required' => 'Alasan refund wajib diisi.',
+            'refund_bank_name.required' => 'Nama Bank wajib diisi.',
+            'refund_account_number.required' => 'Nomor Rekening wajib diisi.',
+            'refund_account_name.required' => 'Nama Pemilik Rekening wajib diisi.',
         ]);
 
         $eventTenant->update([
             'payment_status' => 'refund_requested',
             'refund_status'  => 'requested',
             'refund_reason'  => $request->refund_reason,
+            'refund_bank_name' => $request->refund_bank_name,
+            'refund_account_number' => $request->refund_account_number,
+            'refund_account_name' => $request->refund_account_name,
             'refund_requested_at' => now(),
             'refund_reject_reason' => null,
         ]);

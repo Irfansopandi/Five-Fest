@@ -346,7 +346,21 @@
                         @endif
                     @endif
                     
-                    <a href="{{ route('contact') }}" class="btn btn-outline-dark px-5 py-3 fw-bold rounded-pill shadow-sm">Hubungi Sales</a>
+                    @php
+                        $vendorPhone = $event->vendor->phone ?? '';
+                        $vendorPhone = preg_replace('/[^0-9]/', '', $vendorPhone);
+                        if (str_starts_with($vendorPhone, '0')) {
+                            $vendorPhone = '62' . substr($vendorPhone, 1);
+                        }
+                        
+                        if ($vendorPhone) {
+                            $message = urlencode("Halo, saya tertarik untuk menyewa booth/stand tenant di event " . $event->title . ". Apakah ada informasi lebih lanjut?");
+                            $waUrl = "https://wa.me/" . $vendorPhone . "?text=" . $message;
+                        } else {
+                            $waUrl = route('contact');
+                        }
+                    @endphp
+                    <a href="{{ $waUrl }}" target="_blank" class="btn btn-outline-dark px-5 py-3 fw-bold rounded-pill shadow-sm">Hubungi Sales</a>
                 </div>
             </div>
 
@@ -466,7 +480,7 @@
         </div>
 
         <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="100">
-            <div class="col-md-8">
+            <div class="col-md-8 px-4 px-md-0">
                 <div class="accordion faq-accordion" id="faqTenant">
                     <div class="accordion-item">
                         <h2 class="accordion-header">

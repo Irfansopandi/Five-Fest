@@ -61,6 +61,22 @@
         font-size: 0.9rem;
         border: 1px solid rgba(217, 119, 6, 0.2);
     }
+
+    @media (max-width: 768px) {
+        .payment-container {
+            padding-top: 40px !important;
+            padding-bottom: 40px !important;
+        }
+        .payment-card {
+            border-radius: 20px !important;
+        }
+        .payment-card .card-body {
+            padding: 24px !important;
+        }
+        .payment-card h2 {
+            font-size: 1.8rem !important;
+        }
+    }
 </style>
 
 <section class="payment-container">

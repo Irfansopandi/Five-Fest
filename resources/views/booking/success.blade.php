@@ -54,6 +54,19 @@
         border-color: #8b5cf6 !important;
         color: white !important;
     }
+
+    @media (max-width: 768px) {
+        .card-body.p-5 {
+            padding: 24px !important;
+        }
+        .card-body h2 {
+            font-size: 1.6rem !important;
+        }
+        .py-5 {
+            padding-top: 2rem !important;
+            padding-bottom: 2rem !important;
+        }
+    }
 </style>
 
 <section class="py-5 bg-light min-vh-100">

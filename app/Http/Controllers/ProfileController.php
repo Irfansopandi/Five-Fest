@@ -21,21 +21,31 @@ class ProfileController extends Controller
     // Update profile
     public function update(Request $request)
     {
-        $userId = Auth::id();
+        $user = Auth::user();
         
-        $request->validate([
+        $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $userId,
             'phone' => 'nullable|string|max:20',
-        ]);
+        ];
+
+        if ($user->role !== 'vendor') {
+            $rules['email'] = 'required|email|unique:users,email,' . $user->id;
+        }
+
+        $request->validate($rules);
+
+        $updateData = [
+            'name' => $request->name,
+            'phone' => $request->phone,
+        ];
+
+        if ($user->role !== 'vendor') {
+            $updateData['email'] = $request->email;
+        }
 
         DB::table('users')
-            ->where('id', $userId)
-            ->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-            ]);
+            ->where('id', $user->id)
+            ->update($updateData);
 
         return back()->with('success', 'Profile updated successfully!');
     }

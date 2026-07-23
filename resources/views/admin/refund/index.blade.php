@@ -91,7 +91,7 @@
                                         <th class="py-3">Event</th>
                                         <th class="py-3">Vendor</th>
                                         <th class="py-3">Nominal</th>
-                                        <th class="py-3">Alasan Refund</th>
+                                        <th class="py-3">Detail Refund & Rekening</th>
                                         <th class="py-3">Disetujui Vendor</th>
                                         <th class="py-3">Aksi</th>
                                     </tr>
@@ -117,9 +117,14 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <span class="small text-muted" style="max-width:200px; display:block;">
-                                                {{ $refund->refund_reason ?? '-' }}
-                                            </span>
+                                            <div class="small">
+                                                <strong>Bank:</strong> {{ $refund->refund_bank_name ?? '-' }}<br>
+                                                <strong>No. Rek:</strong> {{ $refund->refund_account_number ?? '-' }}<br>
+                                                <strong>A/N:</strong> {{ $refund->refund_account_name ?? '-' }}
+                                            </div>
+                                            <div class="small text-muted mt-1 border-top pt-1 text-wrap" style="max-width:220px;">
+                                                <strong>Alasan:</strong> {{ $refund->refund_reason ?? '-' }}
+                                            </div>
                                         </td>
                                         <td>
                                             <span class="small text-muted">
@@ -194,7 +199,7 @@
                                         <th class="py-3">Event</th>
                                         <th class="py-3">Vendor</th>
                                         <th class="py-3">Nominal</th>
-                                        <th class="py-3">Alasan Refund</th>
+                                        <th class="py-3">Detail Refund & Rekening</th>
                                         <th class="py-3">Status</th>
                                         <th class="py-3">Selesai Diproses</th>
                                     </tr>
@@ -220,9 +225,14 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <span class="small text-muted" style="max-width:200px; display:block;">
-                                                {{ $refund->refund_reason ?? '-' }}
-                                            </span>
+                                            <div class="small">
+                                                <strong>Bank:</strong> {{ $refund->refund_bank_name ?? '-' }}<br>
+                                                <strong>No. Rek:</strong> {{ $refund->refund_account_number ?? '-' }}<br>
+                                                <strong>A/N:</strong> {{ $refund->refund_account_name ?? '-' }}
+                                            </div>
+                                            <div class="small text-muted mt-1 border-top pt-1 text-wrap" style="max-width:220px;">
+                                                <strong>Alasan:</strong> {{ $refund->refund_reason ?? '-' }}
+                                            </div>
                                         </td>
                                         <td>
                                             <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2 small fw-600">

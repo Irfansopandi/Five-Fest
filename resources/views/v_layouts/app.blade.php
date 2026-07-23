@@ -429,34 +429,46 @@
             height: 260px !important;
             transform: none !important;
             transition: none !important;
+            filter: brightness(0.75) !important;
         }
         .carousel-item.active .hero-img-box { transform: none !important; }
+        .hero-overlay-dark {
+            background: linear-gradient(to top, rgba(15,23,42,0.6) 0%, transparent 70%) !important;
+        }
+        .carousel-item::after {
+            background: rgba(0,0,0,0.2) !important;
+        }
         .hero-caption-box {
-            bottom: 10px !important; left: 12px !important;
-            right: 12px !important; max-width: 100% !important;
+            top: 50% !important;
+            bottom: auto !important;
+            transform: translateY(-50%) !important;
+            left: 20px !important;
+            right: 20px !important;
+            max-width: calc(100% - 40px) !important;
+            display: block !important;
         }
         .hero-caption-box h1 {
-            font-size: 1.1rem !important; line-height: 1.2 !important;
-            margin-bottom: 4px !important;
+            font-size: 1.25rem !important; line-height: 1.2 !important;
+            margin-bottom: 6px !important;
+            font-weight: 800 !important;
         }
         .hero-caption-box p {
-            font-size: 0.68rem !important; margin-bottom: 8px !important;
+            font-size: 0.68rem !important; 
+            margin-bottom: 0 !important;
             display: -webkit-box !important;
             -webkit-line-clamp: 2 !important;
             -webkit-box-orient: vertical !important;
             overflow: hidden !important;
             opacity: 0.85 !important;
         }
-        .hero-caption-box .btn { 
-            padding: 5px 16px !important; 
-            font-size: 0.7rem !important; 
-            border-radius: 50px !important;
+        .hero-caption-box .btn {
+            display: none !important;
         }
-
-        .hero-caption-box .badge { 
+        .hero-caption-box .badge {
             font-size: 0.55rem !important; 
-            padding: 3px 8px !important; 
-            margin-top: 4px !important;
+            padding: 4px 8px !important; 
+            margin-bottom: 6px !important;
+            margin-top: 0 !important;
         }
         .carousel-indicators button {
             width: 6px !important; 

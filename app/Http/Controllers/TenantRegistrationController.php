@@ -102,7 +102,7 @@ class TenantRegistrationController extends Controller
 
         $request->validate([
             'category' => 'required|string|max:255',
-            'booth_photo' => 'required|image|mimes:jpeg,png,jpg|max:5120',
+            'booth_photo' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
         $tenantProfile = auth()->user()->tenantProfile;

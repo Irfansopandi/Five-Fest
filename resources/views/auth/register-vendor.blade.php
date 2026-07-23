@@ -188,8 +188,8 @@
 
     /* ── Buttons ── */
     .btn-next, .btn-submit {
-        border-radius: 50px;
-        padding: .75rem 2rem;
+        border-radius: 12px;
+        padding: .85rem 2rem;
         font-weight: 700;
         letter-spacing: .3px;
         transition: all .25s ease;
@@ -203,6 +203,30 @@
         cursor: not-allowed;
         transform: none !important;
         box-shadow: none !important;
+    }
+
+    @media (max-width: 768px) {
+        .bg-vendor {
+            display: block !important;
+            padding: 1.5rem 10px !important;
+        }
+        .glass-card {
+            margin-top: 10px;
+            margin-bottom: 30px;
+            border-radius: 1.5rem !important;
+        }
+        .glass-card .card-body {
+            padding: 1.5rem !important;
+        }
+        .form-section .d-flex {
+            flex-direction: column-reverse !important;
+            gap: 12px !important;
+        }
+        .btn-next, .btn-submit {
+            width: 100% !important;
+            padding: .85rem 1.5rem !important;
+            border-radius: 12px !important;
+        }
     }
 </style>
 @endpush
@@ -264,7 +288,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label small fw-semibold">No. Telepon Aktif</label>
                                         <div class="field-wrap">
-                                            <input type="tel" id="s1-phone" name="phone"
+                                            <input type="number" id="s1-phone" name="phone"
                                                 class="form-control form-control-modern @error('phone') is-invalid @enderror"
                                                 value="{{ old('phone') }}"
                                                 placeholder="0812xxxx" required>

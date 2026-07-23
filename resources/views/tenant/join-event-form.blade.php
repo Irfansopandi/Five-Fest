@@ -126,6 +126,38 @@
     .is-invalid ~ .invalid-feedback {
         display: block;
     }
+
+    /* Standard premium button style instead of pill shape */
+    .wizard-body .btn, .wizard-body .btn-next {
+        border-radius: 12px !important;
+        padding: 12px 24px !important;
+        font-weight: 700 !important;
+        letter-spacing: .2px;
+        transition: all 0.25s ease;
+    }
+
+    @media (max-width: 768px) {
+        .wizard-container {
+            margin: 20px 10px !important;
+            border-radius: 16px !important;
+        }
+        .wizard-header {
+            padding: 24px 16px !important;
+        }
+        .wizard-body {
+            padding: 24px 16px !important;
+        }
+        .wizard-body .d-flex.mt-5 {
+            flex-direction: column-reverse !important;
+            gap: 12px !important;
+        }
+        .wizard-body .d-flex.mt-5 .btn,
+        .wizard-body .d-flex.mt-5 .btn-next {
+            width: 100% !important;
+            margin: 0 !important;
+            text-align: center !important;
+        }
+    }
 </style>
 
 <div class="container">
@@ -184,15 +216,15 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Nomor WhatsApp</label>
-                            <input type="text" name="phone" id="input_phone" class="form-control" value="{{ auth()->user()->phone }}">
+                            <input type="number" name="phone" id="input_phone" class="form-control" value="{{ auth()->user()->phone }}">
                             <div class="invalid-feedback">Nomor wajib diisi.</div>
 
                         </div>
                     </div>
 
                     <div class="d-flex justify-content-end mt-5">
-                        <a href="{{ route('tenant.event.join', $event->id) }}" class="btn btn-light px-4 py-2 me-2 rounded-pill">Batal</a>
-                        <button type="button" class="btn btn-next px-4 py-2 rounded-pill fw-bold" onclick="nextStep(2)">Lanjut ke Info Bisnis <i class="bi bi-arrow-right ms-2"></i></button>
+                        <a href="{{ route('tenant.event.join', $event->id) }}" class="btn btn-light px-4 py-2 me-2">Batal</a>
+                        <button type="button" class="btn btn-next px-4 py-2 fw-bold" onclick="nextStep(2)">Lanjut ke Info Bisnis <i class="bi bi-arrow-right ms-2"></i></button>
                     </div>
                 </div>
 
@@ -222,8 +254,8 @@
                     </div>
 
                     <div class="d-flex justify-content-between mt-5">
-                        <button type="button" class="btn btn-outline-secondary px-4 py-2 rounded-pill fw-bold" onclick="prevStep(1)"><i class="bi bi-arrow-left me-2"></i> Kembali</button>
-                        <button type="button" class="btn btn-next px-4 py-2 rounded-pill fw-bold" onclick="nextStep(3)">Lanjut ke Konfirmasi <i class="bi bi-arrow-right ms-2"></i></button>
+                        <button type="button" class="btn btn-outline-secondary px-4 py-2 fw-bold" onclick="prevStep(1)"><i class="bi bi-arrow-left me-2"></i> Kembali</button>
+                        <button type="button" class="btn btn-next px-4 py-2 fw-bold" onclick="nextStep(3)">Lanjut ke Konfirmasi <i class="bi bi-arrow-right ms-2"></i></button>
                     </div>
                 </div>
 
@@ -245,7 +277,7 @@
                     <div class="mb-4 p-4 border rounded-3 bg-light">
                         <label class="form-label fw-bold">Foto Booth / Stand Terkini <span class="text-danger">*</span></label>
                         <input type="file" name="booth_photo" class="form-control form-control-lg" required accept="image/*" id="boothPhotoInput">
-                        <div class="form-text mt-2"><i class="bi bi-card-image me-1"></i> Unggah foto berformat JPG/PNG. Maksimal ukuran file 5MB.</div>
+                        <div class="form-text mt-2"><i class="bi bi-card-image me-1"></i> Unggah foto berformat JPG/PNG/WEBP. Maksimal ukuran file 5MB.</div>
                         
                         <!-- Preview Image -->
                         <div class="mt-3 text-center d-none" id="previewContainer">
@@ -254,8 +286,8 @@
                     </div>
 
                     <div class="d-flex justify-content-between mt-5">
-                        <button type="button" class="btn btn-outline-secondary px-4 py-2 rounded-pill fw-bold" onclick="prevStep(2)"><i class="bi bi-arrow-left me-2"></i> Kembali</button>
-                        <button type="submit" class="btn btn-success px-5 py-2 rounded-pill fw-bold" id="submitBtn">Kirim Pengajuan <i class="bi bi-send-fill ms-2"></i></button>
+                        <button type="button" class="btn btn-outline-secondary px-4 py-2 fw-bold" onclick="prevStep(2)"><i class="bi bi-arrow-left me-2"></i> Kembali</button>
+                        <button type="submit" class="btn btn-success px-5 py-2 fw-bold" id="submitBtn">Kirim Pengajuan <i class="bi bi-send-fill ms-2"></i></button>
                     </div>
                 </div>
 
