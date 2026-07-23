@@ -416,11 +416,27 @@ window.addEventListener('load', () => {
     if (c) c.scrollTop = c.scrollHeight;
 });
 
-// ===== ENTER TO SEND =====
-document.getElementById('chatInput').addEventListener('keydown', function(e) {
+// ===== ENTER TO SEND & FORM SUBMIT LOADER =====
+const chatForm = document.getElementById('chatForm');
+if (chatForm) {
+    chatForm.addEventListener('submit', function(e) {
+        const btn = this.querySelector('.chat-send-btn');
+        if (btn) {
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+        }
+    });
+}
+
+document.getElementById('chatInput')?.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
-        document.getElementById('chatForm').submit();
+        const form = document.getElementById('chatForm');
+        if (form.requestSubmit) {
+            form.requestSubmit();
+        } else {
+            form.submit();
+        }
     }
 });
 
