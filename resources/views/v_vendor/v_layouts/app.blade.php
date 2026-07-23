@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Vendor') - Five Fest</title>
 
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
     <link rel="icon" href="/favicon.ico?v=5" type="image/x-icon">
     <link rel="shortcut icon" href="/favicon.ico?v=5" type="image/x-icon">
     <link rel="apple-touch-icon" href="/favicon.ico?v=5">
@@ -586,6 +589,30 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+    // NProgress Global Transition Feedback
+    if (typeof NProgress !== 'undefined') {
+        NProgress.configure({ showSpinner: false, speed: 400 });
+        window.addEventListener('beforeunload', function () { NProgress.start(); });
+        document.addEventListener('click', function (e) {
+            const link = e.target.closest('a');
+            if (link && link.href && !link.target && !link.href.startsWith('javascript:') && !link.href.includes('#') && link.origin === window.location.origin) {
+                NProgress.start();
+            }
+        });
+        document.addEventListener('submit', function (e) {
+            const form = e.target;
+            if (form && !form.target) {
+                NProgress.start();
+                const btn = form.querySelector('button[type="submit"]');
+                if (btn && !btn.classList.contains('no-loader')) {
+                    btn.style.opacity = '0.85';
+                    btn.style.pointerEvents = 'none';
+                    btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Memproses...`;
+                }
+            }
+        });
+    }
+
     AOS.init({
         duration: 800,
         once: true,
