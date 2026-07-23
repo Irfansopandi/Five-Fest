@@ -545,6 +545,7 @@
         top: 0; right: -100%;
         width: 82vw; max-width: 320px;
         height: 100vh;
+        height: 100dvh;
         background: #fff;
         z-index: 1070;
         transition: right 0.32s cubic-bezier(0.4,0,0.2,1);
@@ -605,7 +606,7 @@
     }
 
     /* Panel Body */
-    .mnp-body { flex: 1; overflow-y: auto; padding: 8px 0; }
+    .mnp-body { flex: 1; overflow-y: auto; padding: 8px 0 24px; }
     .mnp-body::-webkit-scrollbar { width: 3px; }
     .mnp-body::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
 
@@ -663,10 +664,11 @@
 
     /* Panel Footer */
     .mnp-footer {
-        padding: 14px 16px;
+        padding: 12px 16px max(18px, env(safe-area-inset-bottom, 24px));
         border-top: 1px solid #f1f5f9;
         flex-shrink: 0;
         background: white;
+        margin-top: auto;
     }
     .mnp-logout-btn {
         width: 100%; padding: 12px;
