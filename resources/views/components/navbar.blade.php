@@ -4,7 +4,7 @@
         {{-- LOGO SECTION --}}
         <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
             <div class="logo-wrapper">
-                <img src="{{ asset('storage/images/logo/logo.png') }}" alt="FiveFest" class="brand-logo">
+                <img src="{{ asset('storage/images/logo/logo.png') }}" alt="FiveFest" class="brand-logo" onerror="this.src='{{ asset('storage/images/logo/logow.png') }}'">
             </div>
             <div class="brand-text-wrapper ms-2">
                 <span class="brand-name">FIVE<span class="text-highlight">FEST</span></span>
