@@ -28,6 +28,10 @@
             "dest": "/public/js/$1"
         },
         {
+            "src": "/sweetalert/(.*)",
+            "dest": "/public/sweetalert/$1"
+        },
+        {
             "src": "/(.*)",
             "dest": "/api/index.php"
         }
