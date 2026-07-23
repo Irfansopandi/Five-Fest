@@ -679,9 +679,10 @@
     }
 
     AOS.init({
-        duration: 800,
+        duration: 500,
         once: true,
-        offset: 50
+        offset: 20,
+        disable: window.innerWidth < 768
     });
 </script>
 

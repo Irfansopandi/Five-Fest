@@ -36,8 +36,15 @@
             height: 3px !important;
             z-index: 99999 !important;
         }
-        #nprogress .peg {
-            box-shadow: 0 0 10px #a855f7, 0 0 5px #a855f7 !important;
+        /* Mobile Performance & Smooth Scroll Optimization */
+        @media (max-width: 768px) {
+            * {
+                -webkit-tap-highlight-color: transparent;
+            }
+            .concert-card-hover, .top-concert-card, .genre-card-clean, .card {
+                content-visibility: auto;
+                contain-intrinsic-size: 280px;
+            }
         }
 
         .text-purple-magic { color: #8b5cf6 !important; }
@@ -1003,8 +1010,8 @@
         // Auto year
         document.getElementById("year").textContent = new Date().getFullYear();
 
-        // AOS
-        AOS.init({ duration:900, easing:'ease-out-quart', once:true, offset:50 });
+        // AOS (Disabled on mobile < 768px for 60fps smooth scrolling)
+        AOS.init({ duration: 500, easing: 'ease-out-quart', once: true, offset: 20, disable: window.innerWidth < 768 });
 
         // NProgress Global Transition Feedback
         if (typeof NProgress !== 'undefined') {
