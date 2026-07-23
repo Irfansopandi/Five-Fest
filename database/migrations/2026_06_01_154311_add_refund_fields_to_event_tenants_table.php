@@ -12,16 +12,27 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('event_tenants', function (Blueprint $table) {
-            $table->text('refund_reason')->nullable()->after('midtrans_order_id');
-            $table->enum('refund_status', [
-                'none',
-                'requested',
-                'approved',
-                'completed'
-            ])->default('none')->after('refund_reason');
-            $table->timestamp('refund_requested_at')->nullable()->after('refund_status');
-            $table->timestamp('refund_approved_at')->nullable()->after('refund_requested_at');
-            $table->timestamp('refund_completed_at')->nullable()->after('refund_approved_at');
+            if (!Schema::hasColumn('event_tenants', 'refund_reason')) {
+                $table->text('refund_reason')->nullable()->after('midtrans_order_id');
+            }
+            if (!Schema::hasColumn('event_tenants', 'refund_status')) {
+                $table->enum('refund_status', [
+                    'none',
+                    'requested',
+                    'approved',
+                    'completed',
+                    'rejected'
+                ])->default('none')->after('refund_reason');
+            }
+            if (!Schema::hasColumn('event_tenants', 'refund_requested_at')) {
+                $table->timestamp('refund_requested_at')->nullable()->after('refund_status');
+            }
+            if (!Schema::hasColumn('event_tenants', 'refund_approved_at')) {
+                $table->timestamp('refund_approved_at')->nullable()->after('refund_requested_at');
+            }
+            if (!Schema::hasColumn('event_tenants', 'refund_completed_at')) {
+                $table->timestamp('refund_completed_at')->nullable()->after('refund_approved_at');
+            }
         });
     }
 
