@@ -69,6 +69,33 @@ class AdminContactController extends Controller
         return view('admin.contact.show', compact('thread', 'user', 'message'));
     }
 
+    public function showJson($id)
+    {
+        $message = ContactMessage::findOrFail($id);
+
+        ContactMessage::where('email', $message->email)
+            ->where('status', 'unread')
+            ->update(['status' => 'read']);
+
+        $thread = ContactMessage::where('email', $message->email)
+            ->oldest()
+            ->get()
+            ->map(function ($msg) {
+                return [
+                    'id' => $msg->id,
+                    'subject' => $msg->subject,
+                    'message' => $msg->message,
+                    'photo_url' => $msg->photo_path ? Storage::url($msg->photo_path) : null,
+                    'status' => $msg->status,
+                    'admin_notes' => $msg->admin_notes,
+                    'time' => $msg->created_at ? $msg->created_at->format('H:i') : '',
+                    'replied_at' => $msg->replied_at ? $msg->replied_at->format('H:i') : '',
+                ];
+            });
+
+        return response()->json($thread);
+    }
+
     /**
      * Update status dan admin notes
      */

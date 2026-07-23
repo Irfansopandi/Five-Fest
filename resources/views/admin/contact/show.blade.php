@@ -281,6 +281,64 @@ function removeFile() {
     if (cloned) cloned.remove();
     document.getElementById('filePreview').style.display = 'none';
 }
+
+// ===== REAL-TIME LIVE ADMIN CHAT POLLING (AUTO REFRESH USER MESSAGES) =====
+let lastAdminMsgCount = {{ count($thread) }};
+function pollAdminLiveChat() {
+    fetch("{{ route('admin.contact.show.json', $message->id) }}")
+        .then(res => res.json())
+        .then(data => {
+            if (!Array.isArray(data)) return;
+            const chatArea = document.getElementById('chatArea');
+            if (!chatArea) return;
+
+            if (data.length > lastAdminMsgCount) {
+                let html = '';
+                data.forEach((msg) => {
+                    const subjectTag = (msg.subject && msg.subject !== 'other') ? `<div style="font-size:0.65rem;color:#888;margin-bottom:2px;padding-left:4px;">${msg.subject}</div>` : '';
+                    const photo = msg.photo_url ? `<div class="mt-2"><img src="${msg.photo_url}" class="rounded" style="max-width:200px;max-height:200px;object-fit:cover;"></div>` : '';
+
+                    html += `
+                        <div class="d-flex justify-content-start mb-2 align-items-end gap-2">
+                            <div class="rounded-circle bg-white d-flex align-items-center justify-content-center flex-shrink-0" style="width:28px;height:28px;border:2px solid #7c3aed;">
+                                <i class="bi bi-person-fill" style="color:#7c3aed;font-size:0.7rem;"></i>
+                            </div>
+                            <div style="max-width:65%;">
+                                ${subjectTag}
+                                <div class="px-3 py-2 shadow-sm" style="background:white;color:#1e293b;border-radius:18px 18px 18px 4px;font-size:0.875rem;line-height:1.45;">
+                                    ${msg.message}
+                                    ${photo}
+                                </div>
+                                <div style="font-size:0.62rem;color:#aaa;margin-top:3px;padding-left:4px;">
+                                    ${msg.time}
+                                </div>
+                            </div>
+                        </div>`;
+
+                    if (msg.status === 'replied' && msg.admin_notes) {
+                        html += `
+                            <div class="d-flex justify-content-end mb-2 align-items-end gap-2">
+                                <div style="max-width:65%;">
+                                    <div class="px-3 py-2 text-white shadow-sm" style="background:linear-gradient(135deg,#7c3aed,#a855f7);border-radius:18px 18px 4px 18px;font-size:0.875rem;line-height:1.45;">
+                                        ${msg.admin_notes}
+                                    </div>
+                                    <div style="font-size:0.62rem;color:#aaa;margin-top:3px;text-align:right;">
+                                        Admin · ${msg.replied_at || ''}
+                                    </div>
+                                </div>
+                            </div>`;
+                    }
+                });
+
+                chatArea.innerHTML = html;
+                chatArea.scrollTop = chatArea.scrollHeight;
+                lastAdminMsgCount = data.length;
+            }
+        })
+        .catch(err => console.log('Polling admin live chat...'));
+}
+
+setInterval(pollAdminLiveChat, 3000);
 </script>
 @endpush
 @endsection

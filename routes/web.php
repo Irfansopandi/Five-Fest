@@ -251,6 +251,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Contact Messages
     Route::get('/contact', [AdminContactController::class, 'index'])->name('contact.index');
     Route::get('/contact/{id}', [AdminContactController::class, 'show'])->name('contact.show');
+    Route::get('/contact/{id}/json', [AdminContactController::class, 'showJson'])->name('contact.show.json');
     Route::put('/contact/{id}', [AdminContactController::class, 'update'])->name('contact.update');
     Route::delete('/contact/{id}', [AdminContactController::class, 'destroy'])->name('contact.destroy');
     Route::get('/contact/{id}/download-photo', [AdminContactController::class, 'downloadPhoto'])->name('contact.download');
