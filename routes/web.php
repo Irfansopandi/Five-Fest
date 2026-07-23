@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\AdminContactController;
 use App\Http\Controllers\Admin\FinanceController;
-use App\Http\controllers\EventController;
+use App\Http\Controllers\EventController;
 // use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendorController;
