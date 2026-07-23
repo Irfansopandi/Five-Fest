@@ -440,6 +440,82 @@ document.getElementById('chatInput')?.addEventListener('keydown', function(e) {
     }
 });
 
+// ===== REAL-TIME LIVE CHAT POLLING (AUTO REFRESH REPLIES) =====
+let lastMsgLength = {{ count($messages) }};
+function pollLiveChat() {
+    fetch("{{ route('my-messages.json') }}")
+        .then(res => res.json())
+        .then(data => {
+            if (!Array.isArray(data)) return;
+            const chatArea = document.getElementById('chatArea');
+            if (!chatArea) return;
+
+            const adminReplyCount = data.filter(m => m.status === 'replied' && m.admin_notes).length;
+            const currentAdminBubbles = chatArea.querySelectorAll('.bubble.admin').length;
+
+            if (data.length > lastMsgLength || adminReplyCount > currentAdminBubbles) {
+                let html = `
+                    <div class="chat-date-badge">
+                        <span>${new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                    </div>
+                    <div class="bubble-row left mt-2">
+                        <div class="bubble-avatar">
+                            <i class="bi bi-headset" style="color:#7c3aed; font-size:0.7rem;"></i>
+                        </div>
+                        <div>
+                            <div class="bubble system">
+                                👋 Halo, <strong>{{ Auth::user()->name }}</strong>! Selamat datang di Pusat Bantuan FiveFest.<br><br>
+                                Kami siap membantu kamu 24/7. Silakan ketik pesanmu di bawah ya!
+                            </div>
+                            <div class="bubble-meta">Admin FiveFest · Otomatis</div>
+                        </div>
+                    </div>`;
+
+                data.forEach(msg => {
+                    const subjectTag = (msg.subject && msg.subject !== 'other') ? `<div class="subject-tag">${msg.subject}</div>` : '';
+                    const photo = msg.photo_url ? `<img src="${msg.photo_url}" class="rounded mt-2 d-block" style="max-width:180px; max-height:180px; object-fit:cover;">` : '';
+                    const checkIcon = (msg.status === 'replied' || msg.status === 'read') ? '<i class="bi bi-check-all" style="color:#a78bfa;"></i>' : '<i class="bi bi-check text-muted"></i>';
+
+                    html += `
+                        <div class="bubble-row right">
+                            <div>
+                                <div class="bubble user">
+                                    ${subjectTag}
+                                    ${msg.message}
+                                    ${photo}
+                                </div>
+                                <div class="bubble-meta">
+                                    ${msg.time} ${checkIcon}
+                                </div>
+                            </div>
+                        </div>`;
+
+                    if (msg.status === 'replied' && msg.admin_notes) {
+                        html += `
+                            <div class="bubble-row left">
+                                <div class="bubble-avatar">
+                                    <i class="bi bi-headset" style="color:#7c3aed; font-size:0.7rem;"></i>
+                                </div>
+                                <div>
+                                    <div class="bubble admin">${msg.admin_notes}</div>
+                                    <div class="bubble-meta">
+                                        Admin · ${msg.replied_at || ''}
+                                    </div>
+                                </div>
+                            </div>`;
+                    }
+                });
+
+                chatArea.innerHTML = html;
+                chatArea.scrollTop = chatArea.scrollHeight;
+                lastMsgLength = data.length;
+            }
+        })
+        .catch(err => console.log('Polling live chat...'));
+}
+
+setInterval(pollLiveChat, 3000);
+
 // ===== NAVBAR OFFSET =====
 function setNavbarOffset() {
     const navbar = document.querySelector('nav.navbar')

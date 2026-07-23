@@ -160,4 +160,34 @@ class ProfileController extends Controller
             ->get();
         return view('user.messages', compact('messages'));
     }
+
+    public function myMessagesJson()
+    {
+        if (!Auth::check()) {
+            return response()->json([]);
+        }
+
+        \App\Models\ContactMessage::where('email', Auth::user()->email)
+            ->where('status', 'replied')
+            ->where('is_read_by_user', false)
+            ->update(['is_read_by_user' => true]);
+
+        $messages = \App\Models\ContactMessage::where('email', Auth::user()->email)
+            ->oldest()
+            ->get()
+            ->map(function ($msg) {
+                return [
+                    'id' => $msg->id,
+                    'subject' => $msg->subject,
+                    'message' => $msg->message,
+                    'photo_url' => $msg->photo_path ? \Illuminate\Support\Facades\Storage::url($msg->photo_path) : null,
+                    'status' => $msg->status,
+                    'admin_notes' => $msg->admin_notes,
+                    'time' => $msg->created_at ? $msg->created_at->format('H:i') : '',
+                    'replied_at' => $msg->replied_at ? $msg->replied_at->format('H:i') : '',
+                ];
+            });
+
+        return response()->json($messages);
+    }
 }

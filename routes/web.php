@@ -113,6 +113,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/password/update', [ProfileController::class, 'updatePassword'])->name('password.update');
     Route::get('/my-tickets', [TicketController::class, 'myTickets'])->name('my-tickets');
     Route::get('/my-messages', [ProfileController::class, 'myMessages'])->name('my-messages');
+    Route::get('/my-messages/json', [ProfileController::class, 'myMessagesJson'])->name('my-messages.json');
     Route::get('/show-ticket/{id}', [TicketController::class, 'showTicket'])->name('ticket.show');
     Route::get('/download-ticket/{id}', [TicketController::class, 'downloadTicket'])->name('ticket.download');
     Route::get('/qr-code/{bookingCode}', [TicketController::class, 'generateQrCode'])->name('ticket.qrcode');
