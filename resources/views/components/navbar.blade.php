@@ -55,7 +55,7 @@
 
         {{-- DESKTOP: Right side --}}
         <div class="d-none d-lg-flex align-items-center justify-content-end gap-3 actions-right">
-            <button class="btn-search-trigger" onclick="toggleSearch()" title="Cari Event">
+            <button class="btn-search-trigger" onclick="toggleSearch()" title="Cari Event" aria-label="Cari Event">
                 <i class="bi bi-search"></i>
             </button>
 

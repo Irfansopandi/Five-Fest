@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'fivefest')</title>
 
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
     <link rel="icon" href="/favicon.ico?v=5" type="image/x-icon">
     <link rel="shortcut icon" href="/favicon.ico?v=5" type="image/x-icon">
     <link rel="apple-touch-icon" href="/favicon.ico?v=5">
@@ -24,6 +28,16 @@
             background-color: #fcfcfe;
             color: #1e1b4b;
             font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
+
+        /* NProgress Loading Bar Customization */
+        #nprogress .bar {
+            background: linear-gradient(90deg, #a855f7, #ec4899, #22d3ee) !important;
+            height: 3px !important;
+            z-index: 99999 !important;
+        }
+        #nprogress .peg {
+            box-shadow: 0 0 10px #a855f7, 0 0 5px #a855f7 !important;
         }
 
         .text-purple-magic { color: #8b5cf6 !important; }
@@ -990,7 +1004,33 @@
         document.getElementById("year").textContent = new Date().getFullYear();
 
         // AOS
-        AOS.init({ duration:900, easing:'ease-out-quart', once:false, offset:100 });
+        AOS.init({ duration:900, easing:'ease-out-quart', once:true, offset:50 });
+
+        // NProgress Global Transition Feedback
+        if (typeof NProgress !== 'undefined') {
+            NProgress.configure({ showSpinner: false, speed: 400 });
+            window.addEventListener('beforeunload', function () {
+                NProgress.start();
+            });
+            document.addEventListener('click', function (e) {
+                const link = e.target.closest('a');
+                if (link && link.href && !link.target && !link.href.startsWith('javascript:') && !link.href.includes('#') && link.origin === window.location.origin) {
+                    NProgress.start();
+                }
+            });
+            document.addEventListener('submit', function (e) {
+                const form = e.target;
+                if (form && !form.target) {
+                    NProgress.start();
+                    const btn = form.querySelector('button[type="submit"]');
+                    if (btn && !btn.classList.contains('no-loader')) {
+                        btn.style.opacity = '0.85';
+                        btn.style.pointerEvents = 'none';
+                        btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Memproses...`;
+                    }
+                }
+            });
+        }
 
         // SweetAlert session messages
         @if(session('success'))
